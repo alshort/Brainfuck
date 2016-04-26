@@ -20,38 +20,38 @@ import brainfuck.instructions.RightBracketInstruction;
 
 public class BrainfuckInterpreter {
 
-	private static final int arraySize = 30000;
-	
-	@SuppressWarnings("resource")
-	public static void main(String[] args) {
+  private static final int arraySize = 30000;
 
-		if (args.length != 1) {
-			System.out.println("No file to load.");
-			System.exit(0);
-		}
-		
-		String input = "";
-		
-		try {
-			BufferedReader fbr = new BufferedReader(new FileReader(args[0]));
-			String line = "";
-			while ((line = fbr.readLine()) != null) {
-				input += line;
-			}
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+  @SuppressWarnings("resource")
+  public static void main(String[] args) {
 
-		input = input.replaceAll("[^\\[\\]+-.,<>]", "");		
-		//System.out.println(input);
-	
-		// Parse to list of instruction objects
-		List<Instruction> instrs = new ArrayList<Instruction>();
-		
-		for (char c : input.toCharArray()) {
-		  switch (c) {
+    if (args.length != 1) {
+      System.out.println("No file to load.");
+      System.exit(0);
+    }
+
+    String input = "";
+
+    try {
+      BufferedReader fbr = new BufferedReader(new FileReader(args[0]));
+      String line = "";
+      while ((line = fbr.readLine()) != null) {
+        input += line;
+      }
+    } catch (FileNotFoundException e) {
+      e.printStackTrace();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+
+    input = input.replaceAll("[^\\[\\]+-.,<>]", "");
+    // System.out.println(input);
+
+    // Parse to list of instruction objects
+    List<Instruction> instrs = new ArrayList<Instruction>();
+
+    for (char c : input.toCharArray()) {
+      switch (c) {
       case '+':
         instrs.add(new PlusInstruction());
         break;
@@ -69,7 +69,7 @@ public class BrainfuckInterpreter {
         break;
       case ',':
         instrs.add(new CommaInstruction());
-        break;      
+        break;
       case '[':
         instrs.add(new LeftBracketInstruction());
         break;
@@ -77,19 +77,19 @@ public class BrainfuckInterpreter {
         instrs.add(new RightBracketInstruction());
         break;
       }
-		}
-		
-		assert(instrs.size() == input.length());
-		
-		// Create and store the state
-		State state = new State(Collections.unmodifiableList(instrs), arraySize, new byte[arraySize], 0, 0);
-		
-		// Execute the program
-		while(state.i < input.length()) {
-			Instruction instruction = state.instrs.get(state.i);
-			instruction.execute(state);
-			
-			state.i++;
-		}
-	}
+    }
+
+    assert (instrs.size() == input.length());
+
+    // Create and store the state
+    State state = new State(Collections.unmodifiableList(instrs), arraySize, new byte[arraySize], 0, 0);
+
+    // Execute the program
+    while (state.i < input.length()) {
+      Instruction instruction = state.instrs.get(state.i);
+      instruction.execute(state);
+
+      state.i++;
+    }
+  }
 }
