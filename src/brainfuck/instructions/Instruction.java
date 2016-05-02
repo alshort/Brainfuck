@@ -1,7 +1,8 @@
 package brainfuck.instructions;
 
+import brainfuck.BrainfuckProgram;
 import brainfuck.State;
 
 public interface Instruction {
-  void execute(State s);
+  void execute(BrainfuckProgram prog, State s);
 }

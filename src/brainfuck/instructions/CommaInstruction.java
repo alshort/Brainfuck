@@ -4,12 +4,13 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
+import brainfuck.BrainfuckProgram;
 import brainfuck.State;
 
 public class CommaInstruction implements Instruction {
 
   @Override
-  public void execute(State s) {
+  public void execute(BrainfuckProgram prog, State s) {
     BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
     try {
       String consoleInput = br.readLine();
