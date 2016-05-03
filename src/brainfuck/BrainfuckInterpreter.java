@@ -1,9 +1,5 @@
 package brainfuck;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.List;
 
 import brainfuck.instructions.Instruction;
@@ -30,33 +26,5 @@ public class BrainfuckInterpreter {
 
       state.i++;
     }
-  }
-
-  @SuppressWarnings("resource")
-  public static void main(String[] args) {
-
-    if (args.length != 1) {
-      System.out.println("No file to load.");
-      return;
-    }
-
-    String input = "";
-
-    try {
-      BufferedReader fbr = new BufferedReader(new FileReader(args[0]));
-      String line = "";
-      while ((line = fbr.readLine()) != null) {
-        input += line;
-      }
-    } catch (FileNotFoundException e) {
-      e.printStackTrace();
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
-    
-    BrainfuckInterpreter interpreter = new BrainfuckInterpreter();    
-    BrainfuckProgram program = BrainfuckProgram.parse(input);
-
-    interpreter.run(program);
   }
 }
